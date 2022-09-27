@@ -1,0 +1,6 @@
+-- Your SQL goes here
+CREATE TABLE artist (
+  id VARCHAR NOT NULL PRIMARY KEY,
+  name VARCHAR(140) NOT NULL,
+  genre VARCHAR(50) NOT NULL
+)
