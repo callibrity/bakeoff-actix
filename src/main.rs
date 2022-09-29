@@ -40,7 +40,7 @@ async fn main() -> std::io::Result<()> {
                 .service(handlers::update)
                 .service(handlers::destroy)
         })
-        .bind(("127.0.0.1", port.parse::<u16>().unwrap()))?
+        .bind(("0.0.0.0", port.parse::<u16>().unwrap()))?
         .run()
         .await
 }
