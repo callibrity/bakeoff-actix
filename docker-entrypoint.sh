@@ -2,7 +2,7 @@
 
 # Apply database migrations
 echo "Applying database migrations..."
-python manage.py migrate
+diesel migration run
 
 # Start server
 echo "Starting server"

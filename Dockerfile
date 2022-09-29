@@ -5,4 +5,8 @@ COPY . .
 
 RUN cargo install --path .
 
-CMD ["bakeoff-rust"]
+RUN cargo install diesel_cli --no-default-features --features postgres
+
+RUN diesel migration run
+
+ENTRYPOINT ./docker-entrypoint.sh
