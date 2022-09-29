@@ -26,8 +26,9 @@ async fn main() -> std::io::Result<()> {
         .build(manager)
         .expect("Failed to create pool.");
 
+        let port = std::env::var("PORT").expect("PORT");
 
-
+    
         HttpServer::new(move || {
             App::new()
                 .app_data(web::Data::new(pool.clone()))
@@ -39,7 +40,7 @@ async fn main() -> std::io::Result<()> {
                 .service(handlers::update)
                 .service(handlers::destroy)
         })
-        .bind(("127.0.0.1", 8080))?
+        .bind(("127.0.0.1", port.parse::<u16>().unwrap()))?
         .run()
         .await
 }
