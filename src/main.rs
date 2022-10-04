@@ -31,7 +31,7 @@ async fn main() -> std::io::Result<()> {
     let db_user = std::env::var("DB_USER").expect("DB_USER");
     let db_pass = std::env::var("DB_PASS").expect("DB_PASS");
 
-    let database_url = std: format!("postgres://{}:{}@{}:{}/{}", db_user, db_pass, db_host, db_port, db_name);
+    let database_url = format!("postgres://{}:{}@{}:{}/{}", db_user, db_pass, db_host, db_port, db_name);
 
     let manager = ConnectionManager::<PgConnection>::new(database_url);
     let pool: DbPool = r2d2::Pool::builder()
