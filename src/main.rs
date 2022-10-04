@@ -24,8 +24,15 @@ async fn main() -> std::io::Result<()> {
     
 
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("ERROR"));
-    //set up db connection pool 
-    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL");
+    //set up db connection pool
+    let db_host = std::env::var("DB_HOST").expect("DB_HOST");
+    let db_port = std::env::var("DB_PORT").expect("DB_PORT");
+    let db_name = std::env::var("DB_NAME").expect("DB_NAME");
+    let db_user = std::env::var("DB_USER").expect("DB_USER");
+    let db_pass = std::env::var("DB_PASS").expect("DB_PASS");
+
+    let database_url = std: format!("postgres://{}:{}@{}:{}/{}", db_user, db_pass, db_host, db_port, db_name);
+
     let manager = ConnectionManager::<PgConnection>::new(database_url);
     let pool: DbPool = r2d2::Pool::builder()
         .max_size(20)
