@@ -6,4 +6,4 @@ diesel migration run
 
 # Start server
 echo "Starting server"
-/usr/local/cargo/bin/bakeoff-api
+/usr/local/bin/bakeoff-rust

@@ -1,5 +1,7 @@
 #[macro_use]
 extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
 
 use actix_web::{middleware, web, App, HttpServer};
 use diesel::prelude::*;
@@ -12,10 +14,14 @@ mod handlers;
 mod models;
 mod schema;
 
+
+pub struct DbConn(diesel::PgConnection);
+
 #[actix_web::main] // or #[tokio::main]
 async fn main() -> std::io::Result<()> {
     //load .env into environment variable
     dotenv::dotenv().ok();
+    
 
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("ERROR"));
     //set up db connection pool 
@@ -25,6 +31,12 @@ async fn main() -> std::io::Result<()> {
         .max_size(20)
         .build(manager)
         .expect("Failed to create pool.");
+
+    {    //create a scope so conn is freed
+       let conn = &mut pool.clone().get().unwrap();
+        embed_migrations!();
+        embedded_migrations::run(conn).expect("failed migration");
+    }    
 
         let port = std::env::var("PORT").expect("PORT");
 
