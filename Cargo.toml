@@ -1,14 +1,11 @@
 [package]
 name = "bakeoff-rust"
 version = "0.1.0"
-edition = "2021"
+edition = "2021" # Optional, affects Rust Edition package is compiled with
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 actix-web = "4.2.1"
-#chrono = { version = "0.4.19", features = ["serde"] }
-# diesel = { version = "1.4.4", features = ["postgres", "r2d2", "chrono"] }
 diesel = { version = "1.4.4", features = ["postgres", "r2d2"] }
 diesel_migrations = "1.4.0"
 dotenv = "0.15.0"
